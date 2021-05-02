@@ -24,7 +24,7 @@ namespace VRTweaks.SnapTurn
         {
             __state = __instance.viewModel.transform.localPosition;
 
-            if (!Config.instance.EnableSnapTurning)
+            if (!Config.instance.EnableSnapTurning || Player.main.isPiloting)
             {
                 return true; //Enter vanilla method
             }
@@ -47,23 +47,16 @@ namespace VRTweaks.SnapTurn
 
         private static void UpdateFields()
         {
-            var lookDelta = GameInput.GetLookDelta();
-
-            _isLookingUpOrDown = Mathf.Abs(lookDelta.y) > Mathf.Abs(lookDelta.x);
-            _isLookingLeftOrRight = Mathf.Abs(lookDelta.x) > Mathf.Abs(lookDelta.y);
-
-            _didLookRight = !_isLookingUpOrDown && (GameInput.GetButtonDown(GameInput.Button.LookRight) || KeyCodeUtils.GetKeyDown(Config.instance.KeybindKeyRight));
-            _didLookLeft = !_isLookingUpOrDown && (GameInput.GetButtonDown(GameInput.Button.LookLeft) || KeyCodeUtils.GetKeyDown(Config.instance.KeybindKeyLeft));
-
-            _isLookingRight = !_isLookingUpOrDown && (GameInput.GetButtonHeld(GameInput.Button.LookRight) || KeyCodeUtils.GetKeyHeld(Config.instance.KeybindKeyRight));
-            _isLookingLeft = !_isLookingUpOrDown && (GameInput.GetButtonHeld(GameInput.Button.LookLeft) || KeyCodeUtils.GetKeyHeld(Config.instance.KeybindKeyLeft));
-
+            _didLookRight = GameInput.GetButtonDown(GameInput.Button.LookRight) || KeyCodeUtils.GetKeyDown(Config.instance.KeybindKeyRight);
+            _didLookLeft = GameInput.GetButtonDown(GameInput.Button.LookLeft) || KeyCodeUtils.GetKeyDown(Config.instance.KeybindKeyLeft);
+            _isLookingRight = GameInput.GetButtonHeld(GameInput.Button.LookRight) || KeyCodeUtils.GetKeyHeld(Config.instance.KeybindKeyRight);
+            _isLookingLeft = GameInput.GetButtonHeld(GameInput.Button.LookLeft) || KeyCodeUtils.GetKeyHeld(Config.instance.KeybindKeyLeft);
+            _isLookingLeftOrRight = _didLookLeft || _didLookRight || _isLookingLeft || _isLookingRight;
             _shouldSnapTurn = XRSettings.enabled && _isLookingLeftOrRight;
-
-            if (lookDelta.x != 0 || lookDelta.y != 0)
-            {
-                Debug.Log("LookDelta: " + lookDelta);
-            }
+            _isLookingUpOrDown = GameInput.GetButtonDown(GameInput.Button.LookUp)
+                || GameInput.GetButtonDown(GameInput.Button.LookDown)
+                || GameInput.GetButtonHeld(GameInput.Button.LookUp)
+                || GameInput.GetButtonHeld(GameInput.Button.LookDown);
         }
 
         private static void UpdatePlayerRotation()
