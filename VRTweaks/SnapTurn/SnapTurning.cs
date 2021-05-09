@@ -29,7 +29,7 @@ namespace VRTweaks.SnapTurn
 
             UpdateFields();
 
-            if (_isLookingUpOrDown && !SnapTurningOptions.EnableVerticalLook)
+            if (_isLookingUpOrDown)
             {
                 return false; //Disable looking up or down with the joystick
             }
@@ -54,11 +54,6 @@ namespace VRTweaks.SnapTurn
             _didLookLeft = !_isLookingUpOrDown && (GameInput.GetButtonDown(GameInput.Button.LookLeft) || KeyCodeUtils.GetKeyDown(SnapTurningOptions.KeybindKeyLeft));
 
             _shouldSnapTurn = XRSettings.enabled && _isLookingLeftOrRight;
-
-            if (lookDelta.x != 0 || lookDelta.y != 0)
-            {
-                Debug.Log("LookDelta: " + lookDelta);
-            }
         }
 
         private static void UpdatePlayerRotation()

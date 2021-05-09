@@ -19,8 +19,9 @@ public static class SnapTurningMenu
 
     public static void AddGeneralTab_Postfix(uGUI_OptionsPanel __instance)
     {
-        __instance.AddHeading(tabIndex, "Additional VR Options");//add new heading under the General Tab
-        __instance.AddToggleOption(tabIndex, "Snap Turning", SnapTurningOptions.EnableSnapTurning, (bool enableSnapTurning) => SnapTurningOptions.EnableSnapTurning = enableSnapTurning);
+        __instance.AddHeading(tabIndex, "Snap Turning");//add new heading under the General Tab
+        __instance.AddToggleOption(tabIndex, "Enable Snap Turning", SnapTurningOptions.EnableSnapTurning, (bool v) => SnapTurningOptions.EnableSnapTurning = v);
+        __instance.AddChoiceOption(tabIndex, "Snap Angle", SnapTurningOptions.SnapAngleChoices, SnapTurningOptions.SnapAngleChoiceIndex, (int index) => SnapTurningOptions.SnapAngleChoiceIndex = index);
     }
 
     public static void AddTab_Postfix(int __result, string label)
@@ -33,5 +34,6 @@ public static class SnapTurningMenu
     public static void SerializeVRSettings_Postfix(GameSettings.ISerializer serializer)
     {
         SnapTurningOptions.EnableSnapTurning = serializer.Serialize("VR/EnableSnapTurning", SnapTurningOptions.EnableSnapTurning);
+        SnapTurningOptions.SnapAngleChoiceIndex = serializer.Serialize("VR/SnapAngleChoiceIndex", SnapTurningOptions.SnapAngleChoiceIndex);
     }
 }
