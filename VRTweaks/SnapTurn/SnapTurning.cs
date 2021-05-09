@@ -9,7 +9,7 @@ namespace VRTweaks.SnapTurn
     [HarmonyPatch(typeof(MainCameraControl), "Update")]
     public static class SnapTurning
     {
-        private static float SnapAngle => Config.SnapAngles[Config.instance.SnapAngleChoiceIndex];
+        private static float SnapAngle => SnapTurningOptions.SnapAngles[SnapTurningOptions.SnapAngleChoiceIndex];
         private static bool _didLookRight;
         private static bool _didLookLeft;
         private static bool _isLookingLeft;
@@ -24,14 +24,14 @@ namespace VRTweaks.SnapTurn
         {
             __state = __instance.viewModel.transform.localPosition;
 
-            if (!Config.instance.EnableSnapTurning || Player.main.isPiloting)
+            if (!SnapTurningOptions.EnableSnapTurning || Player.main.isPiloting)
             {
                 return true; //Enter vanilla method
             }
 
             UpdateFields();
 
-            if (_isLookingUpOrDown && !Config.instance.EnableVirticalLook)
+            if (_isLookingUpOrDown /*&& !.EnableVirticalLook*/)
             {
                 return false; //Disable looking up or down with the joystick
             }
@@ -52,11 +52,11 @@ namespace VRTweaks.SnapTurn
             _isLookingUpOrDown = Mathf.Abs(lookDelta.y) > Mathf.Abs(lookDelta.x);
             _isLookingLeftOrRight = Mathf.Abs(lookDelta.x) > Mathf.Abs(lookDelta.y);
 
-            _didLookRight = !_isLookingUpOrDown && (GameInput.GetButtonDown(GameInput.Button.LookRight) || KeyCodeUtils.GetKeyDown(Config.instance.KeybindKeyRight));
-            _didLookLeft = !_isLookingUpOrDown && (GameInput.GetButtonDown(GameInput.Button.LookLeft) || KeyCodeUtils.GetKeyDown(Config.instance.KeybindKeyLeft));
+            _didLookRight = !_isLookingUpOrDown && (GameInput.GetButtonDown(GameInput.Button.LookRight) || KeyCodeUtils.GetKeyDown(SnapTurningOptions.KeybindKeyRight));
+            _didLookLeft = !_isLookingUpOrDown && (GameInput.GetButtonDown(GameInput.Button.LookLeft) || KeyCodeUtils.GetKeyDown(SnapTurningOptions.KeybindKeyLeft));
 
-            _isLookingRight = !_isLookingUpOrDown && (GameInput.GetButtonHeld(GameInput.Button.LookRight) || KeyCodeUtils.GetKeyHeld(Config.instance.KeybindKeyRight));
-            _isLookingLeft = !_isLookingUpOrDown && (GameInput.GetButtonHeld(GameInput.Button.LookLeft) || KeyCodeUtils.GetKeyHeld(Config.instance.KeybindKeyLeft));
+            _isLookingRight = !_isLookingUpOrDown && (GameInput.GetButtonHeld(GameInput.Button.LookRight) || KeyCodeUtils.GetKeyHeld(SnapTurningOptions.KeybindKeyRight));
+            _isLookingLeft = !_isLookingUpOrDown && (GameInput.GetButtonHeld(GameInput.Button.LookLeft) || KeyCodeUtils.GetKeyHeld(SnapTurningOptions.KeybindKeyLeft));
 
             _shouldSnapTurn = XRSettings.enabled && _isLookingLeftOrRight;
 

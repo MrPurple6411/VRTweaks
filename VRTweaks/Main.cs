@@ -23,10 +23,10 @@ namespace VRTweaks
         {
             File.AppendAllText("VRTweaksLog.txt", "Initializing" + Environment.NewLine);
 
-            OptionsPanelHandler.RegisterModOptions<Config>();
             new GameObject("_VRTweaks").AddComponent<VRTweaks>();
             Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly() ,"VRTweaks");
 
+            SnapTurningMenu.Patch();
 
             File.AppendAllText("VRTweaksLog.txt", "Done Initializing" + Environment.NewLine);
         }
