@@ -94,6 +94,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="VolumeCloudPatches.cs" />
     <Compile Include="SnapTurn\SnapTurningMenu.cs" />
     <Compile Include="SnapTurn\SnapTurningOptions.cs" />
     <Compile Include="VRAnimationsFixer.cs" />
