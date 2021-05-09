@@ -1,6 +1,4 @@
 ﻿using HarmonyLib;
-using SMLHelper.V2.Handlers;
-using SMLHelper.V2.Utility;
 using UnityEngine;
 using UnityEngine.XR;
 
@@ -50,8 +48,8 @@ namespace VRTweaks.SnapTurn
             _isLookingUpOrDown = Mathf.Abs(lookDelta.y) > Mathf.Abs(lookDelta.x);
             _isLookingLeftOrRight = Mathf.Abs(lookDelta.x) > Mathf.Abs(lookDelta.y);
 
-            _didLookRight = !_isLookingUpOrDown && (GameInput.GetButtonDown(GameInput.Button.LookRight) || KeyCodeUtils.GetKeyDown(SnapTurningOptions.KeybindKeyRight));
-            _didLookLeft = !_isLookingUpOrDown && (GameInput.GetButtonDown(GameInput.Button.LookLeft) || KeyCodeUtils.GetKeyDown(SnapTurningOptions.KeybindKeyLeft));
+            _didLookRight = !_isLookingUpOrDown && (GameInput.GetButtonDown(GameInput.Button.LookRight) || GameInput.GetKeyDown(SnapTurningOptions.KeybindKeyRight));
+            _didLookLeft = !_isLookingUpOrDown && (GameInput.GetButtonDown(GameInput.Button.LookLeft) || GameInput.GetKeyDown(SnapTurningOptions.KeybindKeyLeft));
 
             _shouldSnapTurn = XRSettings.enabled && _isLookingLeftOrRight;
         }

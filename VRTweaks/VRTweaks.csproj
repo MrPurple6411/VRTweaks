@@ -52,10 +52,6 @@
       <HintPath>$(CommonDir)SubnauticaZero\BepInEx\plugins\QModManager\QModInstaller.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="SMLHelper">
-      <HintPath>$(CommonDir)SubnauticaZero\QMods\SMLHelper_BZ\SMLHelper.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />

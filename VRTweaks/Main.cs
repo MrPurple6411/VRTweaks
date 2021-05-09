@@ -9,7 +9,6 @@ using UnityEngine.Events;
 using UnityEngine.XR;
 using VRTweaks.SnapTurn;
 using System.Reflection;
-using SMLHelper.V2.Handlers;
 using UWE;
 using System.Collections;
 
