@@ -11,7 +11,6 @@ namespace VRTweaks.SnapTurn
         private static bool _didLookRight;
         private static bool _didLookLeft;
         private static bool _isLookingUpOrDown;
-        private static bool _isLookingLeftOrRight;
         private static bool _shouldSnapTurn;
 
 
@@ -46,12 +45,11 @@ namespace VRTweaks.SnapTurn
             var lookDelta = GameInput.GetLookDelta();
 
             _isLookingUpOrDown = Mathf.Abs(lookDelta.y) > Mathf.Abs(lookDelta.x);
-            _isLookingLeftOrRight = Mathf.Abs(lookDelta.x) > Mathf.Abs(lookDelta.y);
 
             _didLookRight = !_isLookingUpOrDown && (GameInput.GetButtonDown(GameInput.Button.LookRight) || GameInput.GetKeyDown(SnapTurningOptions.KeybindKeyRight));
             _didLookLeft = !_isLookingUpOrDown && (GameInput.GetButtonDown(GameInput.Button.LookLeft) || GameInput.GetKeyDown(SnapTurningOptions.KeybindKeyLeft));
 
-            _shouldSnapTurn = XRSettings.enabled && _isLookingLeftOrRight;
+            _shouldSnapTurn = XRSettings.enabled && (_didLookLeft || _didLookRight);
         }
 
         private static void UpdatePlayerRotation()
