@@ -15,10 +15,8 @@ namespace VRTweaks.SnapTurn
 
 
         [HarmonyPrefix]
-        public static bool Prefix(MainCameraControl __instance, out Vector3 __state)
+        public static bool Prefix(MainCameraControl __instance)
         {
-            __state = __instance.viewModel.transform.localPosition;
-
             if (!SnapTurningOptions.EnableSnapTurning || Player.main.isPiloting)
             {
                 return true; //Enter vanilla method
@@ -71,12 +69,6 @@ namespace VRTweaks.SnapTurn
             }
 
             return newEulerAngles;
-        }
-
-        [HarmonyPostfix]
-        public static void Postfix(MainCameraControl __instance, Vector3 __state)
-        {
-            __instance.viewModel.transform.localPosition = __state;
         }
     }
 }
