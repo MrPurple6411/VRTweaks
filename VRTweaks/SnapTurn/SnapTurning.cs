@@ -12,7 +12,7 @@ namespace VRTweaks.SnapTurn
         private static bool _didLookLeft;
         private static bool _isLookingUpOrDown;
         private static bool _shouldSnapTurn;
-
+        private static bool _shouldIgnoreLookRightOrLeft;
 
         [HarmonyPrefix]
         public static bool Prefix(MainCameraControl __instance)
@@ -35,6 +35,11 @@ namespace VRTweaks.SnapTurn
                 return false; //Don't enter vanilla method if we snap turn
             }
 
+            if (_shouldIgnoreLookRightOrLeft || SnapTurningOptions.DisableMouseLook)
+            {
+                return false;
+            }
+
             return true;
         }
 
@@ -44,8 +49,10 @@ namespace VRTweaks.SnapTurn
 
             _isLookingUpOrDown = Mathf.Abs(lookDelta.y) > Mathf.Abs(lookDelta.x);
 
-            _didLookRight = !_isLookingUpOrDown && (GameInput.GetButtonDown(GameInput.Button.LookRight) || GameInput.GetKeyDown(SnapTurningOptions.KeybindKeyRight));
-            _didLookLeft = !_isLookingUpOrDown && (GameInput.GetButtonDown(GameInput.Button.LookLeft) || GameInput.GetKeyDown(SnapTurningOptions.KeybindKeyLeft));
+            _didLookRight = !_isLookingUpOrDown && (GameInput.GetButtonDown(GameInput.Button.LookRight));
+            _didLookLeft = !_isLookingUpOrDown && (GameInput.GetButtonDown(GameInput.Button.LookLeft));
+            _shouldIgnoreLookRightOrLeft = GameInput.GetButtonHeld(GameInput.Button.LookRight) || GameInput.GetButtonHeld(GameInput.Button.LookLeft);
+            _didLookLeft = !_isLookingUpOrDown && (GameInput.GetButtonDown(GameInput.Button.LookLeft));
 
             _shouldSnapTurn = XRSettings.enabled && (_didLookLeft || _didLookRight);
         }
