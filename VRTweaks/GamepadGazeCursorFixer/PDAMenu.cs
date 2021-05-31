@@ -1,5 +1,5 @@
 ﻿using HarmonyLib;
-using VRTweaks.Utilities.GamepadGazeCursorFixer;
+using VRTweaks.GamepadGazeCursorFixer.Utilities;
 
 namespace VRTweaks.GamepadGazeCursorFixer
 {

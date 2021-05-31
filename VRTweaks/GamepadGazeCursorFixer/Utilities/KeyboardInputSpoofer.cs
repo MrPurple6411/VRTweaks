@@ -1,6 +1,6 @@
 ﻿using HarmonyLib;
 
-namespace VRTweaks.Utilities.GamepadGazeCursorFixer
+namespace VRTweaks.GamepadGazeCursorFixer.Utilities
 {
     [HarmonyPatch(typeof(GameInput), nameof(GameInput.GetPrimaryDevice))]
     public static class KeyboardInputSpoofer

@@ -1,4 +1,4 @@
-﻿namespace VRTweaks.Utilities.GamepadGazeCursorFixer
+﻿namespace VRTweaks.GamepadGazeCursorFixer.Utilities
 {
     public static class RaycastFixer
     {
