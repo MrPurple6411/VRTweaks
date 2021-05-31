@@ -26,8 +26,6 @@ public static class SnapTurningMenu
         __instance.AddBindingOption(_tabIndex, "Keyboard Turn Left", GameInput.Device.Keyboard, GameInput.Button.LookLeft);
         __instance.AddBindingOption(_tabIndex, "Keyboard Turn Right", GameInput.Device.Keyboard, GameInput.Button.LookRight);
         __instance.AddToggleOption(_tabIndex, "Disable Mouse Look", SnapTurningOptions.DisableMouseLook, (bool v) => SnapTurningOptions.DisableMouseLook = v);
-        __instance.AddHeading(_tabIndex, "Gamepad Settings");//add new heading under the General Tab
-        __instance.AddToggleOption(_tabIndex, "Gamepad Gaze Cursor", SnapTurningOptions.GamepadGazeCursor, (bool v) => SnapTurningOptions.GamepadGazeCursor = v);
     }
 
     public static void AddTab_Postfix(int __result, string label)
