@@ -19,8 +19,10 @@ namespace VRTweaks
     {
         private static readonly XRInputManager _instance = new XRInputManager();
         private readonly List<InputDevice> xrDevices = new List<InputDevice>();
+        private readonly List<XRDisplaySubsystem> xrDevices1 = new List<XRDisplaySubsystem>();
         public InputDevice leftController;
         public InputDevice rightController;
+        public InputDevice headSet;
 
 
         private XRInputManager()
@@ -36,9 +38,9 @@ namespace VRTweaks
         void GetDevices()
         {
             InputDevices.GetDevices(xrDevices);
-
             foreach (InputDevice device in xrDevices)
             {
+               // Debug.Log("Device: " + device.name);
                 if (device.name.Contains("Left"))
                 {
                     leftController = device;
@@ -46,6 +48,10 @@ namespace VRTweaks
                 if (device.name.Contains("Right"))
                 {
                     rightController = device;
+                }
+                if(device.name.Contains("Rift"))
+                {
+                    headSet = device;
                 }
             }
         }
@@ -165,7 +171,7 @@ namespace VRTweaks
 
                 if (useController)
                 {
-                    if (GameInput.GetUseOculusInputManager() && XRSettings.loadedDeviceName != "Oculus")
+                    if (GameInput.GetUseOculusInputManager())
                     {
                         Vector2 vector = OVRInput.Get(OVRInput.RawAxis2D.LThumbstick, OVRInput.Controller.Active);
                         GameInput.axisValues[2] = vector.x;
@@ -245,7 +251,7 @@ namespace VRTweaks
                         }
                     }
 
-                    if (xrInput.hasControllers())
+                   /* if (xrInput.hasControllers())
                     {
                         if (XRSettings.loadedDeviceName == "Oculus")
                         {
@@ -294,7 +300,7 @@ namespace VRTweaks
                             //axisValues[6] = xrInput.Get(Controller.Left, CommonUsages.secondary2DAxisTouch).CompareTo(0.1f);
                             //axisValues[7] = xrInput.Get(Controller.Right, CommonUsages.secondaryTouch).CompareTo(0.1f);
                         }
-                    }
+                    }*/
                 }
 
                 if (useKeyboard)

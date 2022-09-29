@@ -10,6 +10,7 @@ using System.Reflection;
 using UWE;
 using System.Collections;
 using System.Collections.Generic;
+using Oculus.Platform;
 
 namespace VRTweaks
 {
@@ -21,7 +22,7 @@ namespace VRTweaks
         public static void Initialize()
         {
             //I guess if they don't want to play in vr they don't have to.
-            if(!XRSettings.enabled)
+            if (!XRSettings.enabled)
             {
                 return;
             }
@@ -75,16 +76,15 @@ namespace VRTweaks
         {
             if (XRSettings.loadedDeviceName == "Oculus")
             {
-                File.AppendAllText("VRTweaksLog.txt", "Recentering Oculus" + Environment.NewLine);
                 OVRManager.display.RecenterPose();
+                File.AppendAllText("VRTweaksLog.txt", "Recentering Oculus" + Environment.NewLine);
                 return;
             }
-
             if (XRSettings.loadedDeviceName == "OpenVR")
             {
-                File.AppendAllText("VRTweaksLog.txt", "Recentering OpenVR" + Environment.NewLine);
                 Valve.VR.OpenVR.System.ResetSeatedZeroPose();
                 Valve.VR.OpenVR.Compositor.SetTrackingSpace(Valve.VR.ETrackingUniverseOrigin.TrackingUniverseSeated);
+                File.AppendAllText("VRTweaksLog.txt", "Recentering OpenVR" + Environment.NewLine);
                 return;
             }
         }
